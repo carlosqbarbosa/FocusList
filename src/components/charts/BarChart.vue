@@ -1,33 +1,24 @@
 <template>
-  <BarChart :data="chartData" :options="chartOptions" />
+  <div class="bg-white rounded-xl p-4 shadow">
+    <h3 class="text-md font-semibold mb-4">Horas focadas por mês (Pomodoro)</h3>
+    <div class="flex items-end gap-2 h-32">
+      <div
+        v-for="(bar, i) in bars"
+        :key="i"
+        class="w-4 rounded-t"
+        :class="bar.max ? 'bg-blue-600' : 'bg-gray-400'"
+        :style="{ height: bar.height + 'px' }"
+      ></div>
+    </div>
+    <p class="text-xs text-center mt-2">Junho: 23 horas de foco</p>
+  </div>
 </template>
 
 <script setup>
-import { Bar } from 'vue-chartjs'
-import {
-  Chart as ChartJS,
-  Title, Tooltip, Legend,
-  BarElement, CategoryScale, LinearScale,
-} from 'chart.js'
-
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
-
-const chartData = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-  datasets: [
-    {
-      label: 'Tarefas Concluídas',
-      backgroundColor: '#3b82f6',
-      data: [30, 50, 45, 60, 70],
-    },
-  ],
-}
-
-const chartOptions = {
-  responsive: true,
-  plugins: {
-    legend: { position: 'bottom' },
-    title: { display: true, text: 'Tarefas por Mês' },
-  },
-}
+const bars = [
+  { height: 40 }, { height: 30 }, { height: 50 }, { height: 20 },
+  { height: 35 }, { height: 60 }, { height: 100, max: true }, { height: 50 },
+  { height: 45 }, { height: 30 }, { height: 40 }, { height: 25 },
+];
 </script>
+
